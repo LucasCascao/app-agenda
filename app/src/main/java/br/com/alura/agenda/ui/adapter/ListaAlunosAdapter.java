@@ -28,7 +28,7 @@ public class ListaAlunosAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int posicao) {
+    public Aluno getItem(int posicao) {
         return alunos.get(posicao);
     }
 
@@ -40,14 +40,14 @@ public class ListaAlunosAdapter extends BaseAdapter {
     @Override
     public View getView(int posicao, View view, ViewGroup viewGroup) {
         View viewCriada = criaView(viewGroup);
-        Aluno aluno = alunos.get(posicao);
-        vincula(viewCriada, aluno);
+        Aluno alunoDevolvido = alunos.get(posicao);
+        vincula(viewCriada, alunoDevolvido);
         return viewCriada;
     }
 
     private void vincula(View view, Aluno aluno) {
         TextView nome = view.findViewById(R.id.item_aluno_nome);
-        nome.setText(aluno.getNome());
+        nome.setText(aluno.getNomeCompleto());
         TextView telefone = view.findViewById(R.id.item_aluno_telefone);
         telefone.setText(aluno.getTelefone());
     }
@@ -58,22 +58,14 @@ public class ListaAlunosAdapter extends BaseAdapter {
                 .inflate(R.layout.item_aluno, viewGroup, false);
     }
 
-    private void addAll(List<Aluno> todos) {
-        this.alunos.addAll(todos);
-    }
-
-    private  void clear() {
-        this.alunos.clear();
-    }
-
     public void atualiza(List<Aluno> alunos){
-        this.clear();
-        this.addAll(alunos);
+        this.alunos.clear();
+        this.alunos.addAll(alunos);
         notifyDataSetChanged();
     }
 
     public void remove(Aluno aluno) {
-        this.alunos.remove(aluno);
+        alunos.remove(aluno);
         notifyDataSetChanged();
     }
 }

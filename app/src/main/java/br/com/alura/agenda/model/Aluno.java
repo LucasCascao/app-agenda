@@ -1,24 +1,39 @@
 package br.com.alura.agenda.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
+@Entity
 public class Aluno implements Serializable {
 
+    @PrimaryKey(autoGenerate = true)
     private int id = 0;
     private String nome;
+    private String sobrenome;
     private String telefone;
     private String email;
+    private Calendar momentoDeCadastro = Calendar.getInstance();
 
-    public Aluno(String nome, String telefone, String email) {
-        this.nome = nome;
-        this.telefone = telefone;
-        this.email = email;
+    public Calendar getMomentoDeCadastro() {
+        return momentoDeCadastro;
     }
 
-    public Aluno() {
+    public void setMomentoDeCadastro(Calendar momentoDeCadastro) {
+        this.momentoDeCadastro = momentoDeCadastro;
+    }
 
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
     }
 
     public void setNome(String nome) {
@@ -48,7 +63,7 @@ public class Aluno implements Serializable {
     @NonNull
     @Override
     public String toString() {
-        return nome;
+        return nome + " - " + telefone;
     }
 
     public void setId(int id) {
@@ -61,5 +76,12 @@ public class Aluno implements Serializable {
 
     public boolean temIdValido() {
         return id > 0;
+    }
+
+    public String getNomeCompleto() {
+        return nome + " " + sobrenome;
+    }
+    public String dataFormatada(){
+        return new SimpleDateFormat("dd/MM/yyyy").format(momentoDeCadastro.getTime());
     }
 }
