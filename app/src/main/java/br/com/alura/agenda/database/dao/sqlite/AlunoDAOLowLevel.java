@@ -36,7 +36,7 @@ public class AlunoDAOLowLevel extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues valores = new ContentValues();
         valores.put("nome", aluno.getNome());
-        valores.put("telefone", aluno.getTelefone());
+        valores.put("telefone", aluno.getTelefoneFixo());
         valores.put("email", aluno.getEmail());
         db.insert("alunos", null, valores);
     }
@@ -59,7 +59,7 @@ public class AlunoDAOLowLevel extends SQLiteOpenHelper {
             Aluno aluno = new Aluno();
             aluno.setId(c.getInt(c.getColumnIndex("id")));
             aluno.setNome(c.getString(c.getColumnIndex("nome")));
-            aluno.setTelefone(c.getString(c.getColumnIndex("telefone")));
+            aluno.setTelefoneFixo(c.getString(c.getColumnIndex("telefone")));
             aluno.setEmail(c.getString(c.getColumnIndex("email")));
             alunos.add(aluno);
         }
@@ -72,7 +72,7 @@ public class AlunoDAOLowLevel extends SQLiteOpenHelper {
         ContentValues valores = new ContentValues();
         valores.put("id", aluno.getId());
         valores.put("nome", aluno.getNome());
-        valores.put("telefone", aluno.getTelefone());
+        valores.put("telefone", aluno.getTelefoneFixo());
         valores.put("email", aluno.getEmail());
         return valores;
     }
