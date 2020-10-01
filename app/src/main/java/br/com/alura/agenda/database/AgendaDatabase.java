@@ -7,23 +7,26 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 import br.com.alura.agenda.database.converter.ConversorCalendar;
+import br.com.alura.agenda.database.converter.ConversorTipoTelefone;
+import br.com.alura.agenda.database.dao.TelefoneDAO;
 import br.com.alura.agenda.database.dao.room.AlunoDAO;
 import br.com.alura.agenda.model.Aluno;
+import br.com.alura.agenda.model.Telefone;
 
 import static br.com.alura.agenda.database.AgendaMigrations.TODAS_MIGRATIONS;
 
-@Database(entities = {Aluno.class}, version = 4, exportSchema = false)
-@TypeConverters({ConversorCalendar.class})
+@Database(entities = {Aluno.class, Telefone.class}, version = 5, exportSchema = false)
+@TypeConverters({ConversorCalendar.class, ConversorTipoTelefone.class})
 public abstract class AgendaDatabase extends RoomDatabase {
 
     private static final String NOME_BANCO_DE_DADOS = "agenda.db";
 
-
     public abstract AlunoDAO getRoomAlunoDAO();
+
+    public abstract TelefoneDAO getTelefoneDAO();
 
     public static AgendaDatabase getInstance(Context context){
         return Room.databaseBuilder(context, AgendaDatabase.class, NOME_BANCO_DE_DADOS)
-                .allowMainThreadQueries()
                 .addMigrations(TODAS_MIGRATIONS)
                 .build();
     }
